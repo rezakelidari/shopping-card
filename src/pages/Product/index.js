@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Styles from "./Product.module.css";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { getProductDetails } from "../../api/productDetails";
 import { shorter } from "../../helper/functions";
 
 function Product() {
   const params = useParams();
+  const navigate = useNavigate();
   const productId = params.id;
   const [loading, setIsLoading] = useState(true);
   const [data, setData] = useState({
@@ -18,8 +19,8 @@ function Product() {
 
   useEffect(() => {
     getProductDetails(productId).then((result) => {
+      setIsLoading(false);
       if (result.type === "SUCCESS") {
-        setIsLoading(false);
         setData({
           title: shorter(result.data.title),
           desc: result.data.description,
@@ -27,6 +28,8 @@ function Product() {
           category: result.data.category,
           price: result.data.price,
         });
+      } else if (result.data === "404") {
+        navigate("/NotFound");
       }
     });
   }, []);
