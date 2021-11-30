@@ -7,7 +7,9 @@ export const getProductDetails = async (productId) => {
   await axios
     .get(baseUri + productId)
     .then((response) => {
-      result = { type: "SUCCESS", data: response.data };
+      response.data
+        ? (result = { type: "SUCCESS", data: response.data })
+        : (result = { type: "FAILED", data: "404" });
     })
     .catch((error) => {
       result = { type: "FAILED", data: error.message };
