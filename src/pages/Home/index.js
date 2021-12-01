@@ -9,7 +9,7 @@ function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    productFetch(dispatch);
+    props.data.length === 0 && productFetch(dispatch);
   }, []);
 
   return (
