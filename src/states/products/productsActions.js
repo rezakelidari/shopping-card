@@ -20,12 +20,11 @@ const productFetchFailed = (error) => {
 
 export const productFetch = (dispatch) => {
   dispatch(productFetchRequest());
-  getProducts().then((result) => {
-    console.log(result);
+  getProducts().then((result) =>
     dispatch(
       result.type === productActions.Success
         ? productFetchSuccess(result.data)
         : productFetchFailed(result.data)
-    );
-  });
+    )
+  );
 };
