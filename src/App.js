@@ -12,8 +12,8 @@ function App() {
   return (
     <BrowserRouter>
       <div className={Styles.appMain}>
-        <Navbar />
         <Provider store={store}>
+          <Navbar />
           <Routes>
             <Route path="/products/:id" element={<Product />} />
             <Route path="/" element={<Home />} />

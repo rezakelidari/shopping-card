@@ -1,10 +1,38 @@
 nav {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 1rem 2rem;
   background: rgba(255, 255, 255, 0.5);
   position: fixed;
   width: 100%;
   backdrop-filter: blur(5px);
   top: 0;
+}
+
+.navCart {
+  border: none;
+  outline: none;
+  background: none;
+  position: relative;
+  cursor: pointer;
+}
+
+.navCartIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.navCartNumber {
+  position: absolute;
+  background: #000000;
+  color: #ffffff;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: -0.25rem;
+  right: -0.25rem;
+  border-radius: 1rem;
 }
