@@ -14,3 +14,8 @@ html {
 #root {
   overflow-x: hidden;
 }
+
+a {
+  color: #000000;
+  text-decoration: none;
+}
