@@ -3,11 +3,22 @@ import Styles from "./Product.module.css";
 import { useNavigate, useParams } from "react-router";
 import { getProductDetails } from "../../api/productDetails";
 import { shorter } from "../../helper/functions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addItem,
+  itemDecrease,
+  itemIncrease,
+  removeItem,
+} from "../../states/cart/cartActions";
 
 function Product() {
-  const params = useParams();
   const navigate = useNavigate();
-  const productId = params.id;
+
+  const params = useParams();
+  const id = +params.id;
+  const cartState = useSelector((state) => state.cartState);
+  const dispatch = useDispatch();
+
   const [loading, setIsLoading] = useState(true);
   const [data, setData] = useState({
     title: "",
@@ -17,8 +28,13 @@ function Product() {
     price: 0,
   });
 
+  const isInCart = cartState.selectedItems.some((item) => item.id === id);
+  const quantity = isInCart
+    ? cartState.selectedItems.find((item) => item.id === id).quantity
+    : 0;
+
   useEffect(() => {
-    getProductDetails(productId).then((result) => {
+    getProductDetails(id).then((result) => {
       setIsLoading(false);
       if (result.type === "SUCCESS") {
         setData({
@@ -52,6 +68,43 @@ function Product() {
               Category: {data.category}
             </div>
             <p className={Styles.productDesc}>{data.desc}</p>
+            <br />
+            {isInCart ? (
+              <div className={Styles.productEdit}>
+                <button
+                  className={Styles.productDecrease}
+                  onClick={() =>
+                    dispatch(
+                      quantity > 1
+                        ? itemDecrease(id, data.price)
+                        : removeItem(id, data.price)
+                    )
+                  }
+                >
+                  -
+                </button>
+                <input
+                  type="text"
+                  size="2"
+                  className={Styles.productNumber}
+                  value={quantity}
+                  readOnly
+                />
+                <button
+                  className={Styles.productIncrease}
+                  onClick={() => dispatch(itemIncrease(id, data.price))}
+                >
+                  +
+                </button>
+              </div>
+            ) : (
+              <button
+                className={Styles.productAdd}
+                onClick={() => dispatch(addItem(id, data.price))}
+              >
+                Add to cart
+              </button>
+            )}
           </div>
         </div>
       )}
