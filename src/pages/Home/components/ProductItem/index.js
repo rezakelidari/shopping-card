@@ -1,4 +1,5 @@
 import React from "react";
+import Styles from "./ProductItem.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -7,7 +8,6 @@ import {
   itemIncrease,
   removeItem,
 } from "../../../../states/cart/cartActions";
-import Styles from "./Product.module.css";
 
 function ProductItem({ id, name, price, image }) {
   const cartState = useSelector((state) => state.cartState);
