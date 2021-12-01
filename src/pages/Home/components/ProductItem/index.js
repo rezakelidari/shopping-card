@@ -35,7 +35,11 @@ function ProductItem({ id, name, price, image }) {
               <button
                 className={Styles.productCartDecrease}
                 onClick={() =>
-                  dispatch(quantity > 1 ? itemDecrease(id) : removeItem(id))
+                  dispatch(
+                    quantity > 1
+                      ? itemDecrease(id, price)
+                      : removeItem(id, price)
+                  )
                 }
               >
                 -
@@ -49,7 +53,7 @@ function ProductItem({ id, name, price, image }) {
               />
               <button
                 className={Styles.productCartIncrease}
-                onClick={() => dispatch(itemIncrease(id))}
+                onClick={() => dispatch(itemIncrease(id, price))}
               >
                 +
               </button>
@@ -57,7 +61,7 @@ function ProductItem({ id, name, price, image }) {
           ) : (
             <button
               className={Styles.productCartAdd}
-              onClick={() => dispatch(addItem(id))}
+              onClick={() => dispatch(addItem(id, price))}
             >
               Add to cart
             </button>

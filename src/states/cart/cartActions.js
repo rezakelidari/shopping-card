@@ -7,31 +7,31 @@ const cartActions = {
   clear: "CLEAR",
 };
 
-const addItem = (product) => {
+const addItem = (product, price) => {
   return {
     type: cartActions.addItem,
-    payload: product,
+    payload: { id: product, price: price },
   };
 };
 
-const removeItem = (product) => {
+const removeItem = (product, price) => {
   return {
     type: cartActions.removeItem,
-    payload: product,
+    payload: { id: product, price: price },
   };
 };
 
-const itemIncrease = (product) => {
+const itemIncrease = (product, price) => {
   return {
     type: cartActions.itemIncrease,
-    payload: product,
+    payload: { id: product, price: price },
   };
 };
 
-const itemDecrease = (product) => {
+const itemDecrease = (product, price) => {
   return {
     type: cartActions.itemDecrease,
-    payload: product,
+    payload: { id: product, price: price },
   };
 };
 

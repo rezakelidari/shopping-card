@@ -7,27 +7,43 @@ const initialState = {
   checkout: false,
 };
 
+function sumItems(items) {
+  const itemsCounter = items.reduce(
+    (total, product) => total + product.quantity,
+    0
+  );
+  const total = items
+    .reduce((total, product) => total + product.price * product.quantity, 0)
+    .toFixed(2);
+
+  return { itemsCounter: itemsCounter, total: total };
+}
+
 export function cartReducer(state = initialState, action) {
   switch (action.type) {
     case cartActions.addItem:
       const addItemSI = [...state.selectedItems];
-      !addItemSI.find((item) => item.id === action.payload) &&
+      !addItemSI.find((item) => item.id === action.payload.id) &&
         addItemSI.push({
-          id: action.payload,
+          ...action.payload,
           quantity: 1,
         });
 
-      return { ...state, selectedItems: addItemSI };
+      return { ...state, selectedItems: addItemSI, ...sumItems(addItemSI) };
 
     case cartActions.removeItem:
       const removeItemSI = [...state.selectedItems].filter(
-        (item) => item.id !== action.payload
+        (item) => item.id !== action.payload.id
       );
-      return { ...state, selectedItems: removeItemSI };
+      return {
+        ...state,
+        selectedItems: removeItemSI,
+        ...sumItems(removeItemSI),
+      };
 
     case cartActions.itemIncrease:
       const itemIndexI = state.selectedItems.findIndex(
-        (item) => item.id === action.payload
+        (item) => item.id === action.payload.id
       );
 
       const itemIncreaseSI = [...state.selectedItems];
@@ -36,11 +52,12 @@ export function cartReducer(state = initialState, action) {
       return {
         ...state,
         selectedItems: itemIncreaseSI,
+        ...sumItems(itemIncreaseSI),
       };
 
     case cartActions.itemDecrease:
       const itemIndexD = state.selectedItems.findIndex(
-        (item) => item.id === action.payload
+        (item) => item.id === action.payload.id
       );
 
       const itemDecreaseSI = [...state.selectedItems];
@@ -49,6 +66,7 @@ export function cartReducer(state = initialState, action) {
       return {
         ...state,
         selectedItems: itemDecreaseSI,
+        ...sumItems(itemDecreaseSI),
       };
 
     case cartActions.checkout:
