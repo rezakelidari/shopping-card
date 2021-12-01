@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import store from "./states/store";
 import Product from "./pages/Product";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -15,8 +16,9 @@ function App() {
         <Provider store={store}>
           <Navbar />
           <Routes>
-            <Route path="/products/:id" element={<Product />} />
             <Route path="/" element={<Home />} />
+            <Route path="/products/:id" element={<Product />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Provider>
