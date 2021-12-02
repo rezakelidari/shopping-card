@@ -79,3 +79,15 @@
   border-radius: 0.5rem;
   font-size: 1.25rem;
 }
+
+/* Responsive */
+@media only screen and (max-width: 768px) {
+  .cartMain {
+    flex-direction: column-reverse;
+    justify-content: unset;
+    gap: 1rem;
+  }
+
+  
+}
+/* End Responsive */

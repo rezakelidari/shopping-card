@@ -92,3 +92,25 @@
   outline: none;
   border-radius: 0.5rem;
 }
+
+/* Responsive */
+@media only screen and (max-width: 768px) {
+  .productWrapper {
+    flex-direction: column;
+  }
+
+  .productImage {
+    height: 250px;
+    width: 250px;
+    object-fit: contain;
+  }
+
+  .productDetails {
+    width: 85vw;
+  }
+
+  .productDesc {
+    width: auto;
+  }
+}
+/* End Responsive */
